@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TEST</title>
+  <script type="text/javascript" src="main.js"></script>
+<script>
+window.onload = function() {
+  _URL_ = "https://xcl28qicy7.execute-api.ap-northeast-1.amazonaws.com/check/responseHistory";
+  _Items_ = ["user", "date", "url", "status"];
+  _ID_ = "his";
+
+  makeTable(_URL_, _Items_, _ID_);
+};
+</script>
+
+</head>
+<body>
+  <h1>ステータス履歴</h1>
+  <div id="his"></div>      
+</body>
+</html>
