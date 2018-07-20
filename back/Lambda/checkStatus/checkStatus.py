@@ -1,3 +1,8 @@
+# checkURL.py
+# Get URLs from DynamoDB.
+# Check the status of URL.
+# Write the status to DynamoDB.
+
 import requests
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
@@ -5,48 +10,35 @@ import logging
 import json
 import datetime
 
-dynamodb = boto3.resource('dynamodb')
-check_table = dynamodb.Table('urlcheck')
-status_table = dynamodb.Table('urlstatus')
-history_table = dynamodb.Table('checkhistory')
+# DynamoDB
+_dynamodb_ = boto3.resource('dynamodb')
+_starget_ = _dynamodb_.Table('S-Target')
+_sstatus_ = _dynamodb_.Table('S-Status')
 
 def lambda_handler(event, context):
-  scan = check_table.scan()
-  jsonData = scan['Items']
-  list = len(jsonData)
+# tableをスキャン
+  _scan_ = _starget_.scan()
 
-  for i in range(0,list):
+  _stjson_ = _scan_['Items']  # スキャン結果をJsonデータへ変換
+  _list_ = len(_stjson_)  # 配列数を取得
+
+  for i in range(0,_list_):
     try:
-      url = jsonData[i]['url']
-      gens = jsonData[i]['gens']
-      user = jsonData[i]['user']
-
-      res = status_table.query(
-        KeyConditionExpression = Key('url').eq(url),
-        FilterExpression=Attr('user').eq(user),
-        Limit = int(gens)
-      )
-
-      num = 0
-      for i in res['Items']:
-        if i['status'] == 200:
-          num += 1
-
-      if num == gens:
-        status = 'healthy'
-      else:
-        status = 'unhealthy'
-
-      date = str(datetime.datetime.now())
-      result = {
-        'url':url,
-        'date':date,
-        'gens':gens,
-        'user':user,
-        'status':status
-      }
-      print(result)
-      res = history_table.put_item( Item = result )
+      _url_ = "https://" + _stjson_[i]['domain']
+      _req_ = requests.get(_url_, timeout=3)
+      _name_ = _stjson_[i]['name']
+      _date_ = str(datetime.datetime.now())
     except Exception as e:
-      print(e)
+      logging.info(e.response['Error']['Message'])
+    else:
+      _result_ = {
+        'url':_url_,
+        'date':_date_,
+        'scode':_req_.status_code,
+        'name':_name_
+      }
+      print(_result_)
+      _res_ = _sstatus_.put_item( Item = _result_ )
+
+  return _res_
 
