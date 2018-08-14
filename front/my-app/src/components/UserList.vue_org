@@ -1,0 +1,40 @@
+<template>
+  <div class="axios">
+    <h1>{{ title }}</h1>
+    <user-regist v-bind:fields="fields" />
+    <user-list v-bind:items="results" v-bind:fields="fields" />
+  </div>
+</template>
+
+<script>
+import Table from '@/components/Table'
+import Registration from '@/components/Registration'
+import axios from 'axios'
+
+const URL = 'https://xcl28qicy7.execute-api.ap-northeast-1.amazonaws.com/check/responseHistory'
+
+export default {
+  name: 'List',
+  components: {
+    'user-list': Table,
+    'user-regist': Registration
+  },
+  data () {
+    return {
+      title: 'UserList',
+      fields: [ 'id', 'name', 'slack' ],
+      results: []
+    }
+  },
+  mounted () {
+    this.getList()
+  },
+  methods: {
+    getList () {
+      axios
+        .get(URL)
+        .then(response => { this.results = response.data })
+    }
+  }
+}
+</script>
