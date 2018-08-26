@@ -19,11 +19,16 @@
     </b-row>
 
     <b-table show-empty stacked="md" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage" :filter="filter">
-      <template slot="name" slot-scope="row">{{row.value}}</template>
+      <template slot="actions" slot-scope="row">
+        <b-button size="sm" @click.stop="info(row.item, row.index, $event.target)" class="mr-1">
+          Info modal
+        </b-button>
+      </template>
     </b-table>
+
     <b-row>
       <b-col md="6" class="my-1">
-        <b-pagination :per-page="perPage" v-model="currentPage" class="my-0" />
+        <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
       </b-col>
     </b-row>
     <div class="mt-4">currentPage: {{currentPage}}</div>
@@ -38,6 +43,7 @@ export default {
     return {
       currentPage: 1,
       perPage: 3,
+      totalRows: 100,
       pageOptions: [ 3, 5, 10 ],
       filter: null
     }

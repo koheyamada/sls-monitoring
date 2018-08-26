@@ -6,6 +6,8 @@ import UserList from '@/components/UserList'
 import Registration from '@/components/Registration'
 import CheckResults from '@/components/CheckResults'
 import Codes from '@/components/Codes'
+import Graph from '@/components/Graph'
+import Login from '@/components/Login'
 
 Vue.use(Router)
 
@@ -17,6 +19,14 @@ export default new Router({
       component: HelloWorld,
       meta: {
         title: 'hello world'
+      }
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
+      meta: {
+        title: 'Login'
       }
     },
     {
@@ -57,6 +67,14 @@ export default new Router({
       component: Codes,
       meta: {
         title: 'Codes'
+      }
+    },
+    {
+      path: '/graph',
+      name: 'Graph',
+      component: Graph,
+      meta: {
+        title: 'Graph'
       }
     }
   ]

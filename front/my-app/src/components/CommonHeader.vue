@@ -7,6 +7,7 @@
       <router-link to="/user" class="badge badge-primary">Users</router-link>
       <router-link to="/codes" class="badge badge-primary">Codes</router-link>
       <router-link to="/checkresults" class="badge badge-primary">Results</router-link>
+      <router-link to="/login" class="badge badge-primary">Login</router-link>
     </div>
   </header>
 </template>

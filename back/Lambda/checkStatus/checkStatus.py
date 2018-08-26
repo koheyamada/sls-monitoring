@@ -45,5 +45,5 @@ def lambda_handler(event, context):
     else:
       print(_stjson_[i]['domain'] + " is not resolved.")
 
-  return res
+  return
 

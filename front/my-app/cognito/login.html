@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+    <link rel="stylesheet" type="text/css" href="./login.css">
+    <!-- aws sdk //-->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.3.8.min.js"></script>
+    <!-- aws cognito sdk (public beta!!) //-->
+    <script src="./js/jsbn.js"></script>
+    <script src="./js/jsbn2.js"></script>
+    <script src="./js/sjcl.js"></script>
+    <script src="./js/aws-cognito-sdk.min.js"></script>
+    <script src="./js/amazon-cognito-identity.min.js"></script>
+    <script src="./js/index.js"></script>
+    <!-- jquery //-->
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"
+            integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+    <!-- bootstrap3 //-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+          integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!-- header -->
+<hgroup class="heading">
+    <h1 class="major">Login Form </h1>
+</hgroup>
+
+<!-- form starts here -->
+<form class="sign-up">
+    <h1 class="sign-up-title">Sign up in seconds</h1>
+    <input type="text" class="sign-up-input" id="name" placeholder="What's your username?" autofocus>
+    <input type="password" class="sign-up-input" id="password" placeholder="Choose a password">
+    <button type="submit" value="Log in" class="sign-up-button" id="login-button">Login</button>
+</form>
+
+<div class="about">
+    <p class="about-links">
+        <a href="http://www.cssflow.com/snippets/sign-up-form" target="_parent">View Article</a>
+        <a href="http://www.cssflow.com/snippets/sign-up-form.zip" target="_parent">Download</a>
+    </p>
+    <p class="about-author">
+        &copy; 2013 <a href="http://thibaut.me" target="_blank">Thibaut Courouble</a> -
+        <a href="http://www.cssflow.com/mit-license" target="_blank">MIT License</a><br>
+        Original PSD by <a href="http://dribbble.com/shots/1037950-Sign-up-freebie" target="_blank">Dylan Opet</a>
+    </p>
+</div>
+
+</body>
+</html>
