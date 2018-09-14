@@ -1,22 +1,20 @@
 <script>
 import {Line} from 'vue-chartjs'
+
 export default {
   extends: Line,
+  props: {
+    chartData: {
+      type: Array | Object,
+      required: false
+    },
+    chartLabels: {
+      type: Array | Object,
+      required: true
+    }
+  },
   data () {
     return {
-      datacollection: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        datasets: [
-          {
-            label: 'Data One',
-            backgroundColor: '#f87979',
-            pointBackgroundColor: 'white',
-            borderWidth: 1,
-            pointBorderColor: '#249EBF',
-            data: [40, 20, 30, 50, 90, 10, 20, 40, 50, 70, 90, 100]
-          }
-        ]
-      },
       options: {
         scales: {
           yAxes: [{
@@ -42,7 +40,18 @@ export default {
     }
   },
   mounted () {
-    this.renderChart(this.datacollection, this.options)
+    this.renderChart({
+      labels: this.chartLabels,
+      datasets: [
+        {
+          label: 'Data One',
+          backgroundColor: '#f87979',
+          pointBackgroundColor: 'white',
+          borderWidth: 1,
+          pointBorderColor: '#249EBF',
+          data: this.chartData
+        }]
+    }, this.options)
   }
 }
 </script>

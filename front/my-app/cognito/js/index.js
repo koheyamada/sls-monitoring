@@ -15,33 +15,3 @@ var data = { UserPoolId: 'ap-northeast-1_ufc2eDT2p',
 var userPool;
 var cognitoUser;
 
-$("#login-button").click(function(event){
-    event.preventDefault();
-    var authenticationData = {
-        Username : $('#name').val(),
-        Password : $('#password').val()
-    };
-    var authenticationDetails = new AWSCognito.CognitoIdentityServiceProvider.AuthenticationDetails(authenticationData);
-    userPool = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool(data);
-    var userData = {
-        Username : $('#name').val(),
-        Pool : userPool
-    };
-    cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
-    cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess: function (authresult) {
-            //console.log('access token + ' + authresult.getIdToken().getJwtToken());
-
-            var url = "mypage.html";
-
-            $('form').fadeOut(700, function(){
-                $(location).attr("href", url);
-            });
-            $('.wrapper').addClass('form-success');
-
-        },
-        onFailure: function(err) {
-            alert(err.message);
-        },
-    });
-});

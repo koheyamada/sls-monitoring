@@ -1,16 +1,20 @@
 <template>
-<div class="login">
-  <h1 class="msg">Login</h1>
-  <b-container>
-    <b-input-group prepend="name">
-      <b-form-input v-model="name" placeholder="入力してください"></b-form-input>
-    </b-input-group>
-    <b-input-group prepend="mail">
-      <b-form-input v-model="mail" placeholder="入力してください"></b-form-input>
-    </b-input-group>
-    <b-btn text="Button" variant="outline-secondary" v-on:click="login">Login</b-btn>
-  </b-container>
-</div>
+  <div class="login">
+    <h2>ログイン</h2>
+    <form @submit.prevent="login">
+      <div>
+        ユーザー名:
+        <input type="text" placeholder="username" v-model="username" required>
+      </div>
+      <div>
+        パスワード:
+        <input type="password" placeholder="password" v-model="password" required>
+      </div>
+      <button>ログイン</button>
+    </form>
+    <router-link to="/confirm">確認コード入力</router-link>
+    <router-link to="/signup">ユーザー登録</router-link>
+  </div>
 </template>
 
 <script>
@@ -18,14 +22,19 @@ export default {
   name: 'Login',
   data () {
     return {
-      name: '',
-      mail: '',
-      passwd: ''
+      username: '',
+      password: ''
     }
   },
   methods: {
-    login: function (event) {
-      alert('Hello' + this.name + '!')
+    login () {
+      this.$cognito.login(this.username, this.password)
+        .then(result => {
+          this.$router.replace('/home')
+        })
+        .then(err => {
+          this.error = err
+        })
     }
   }
 }

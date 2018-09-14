@@ -1,16 +1,10 @@
 <template>
   <section class="container">
-    <ul>
-      <li><router-link to="/">Home</router-link></li>
-      <li><router-link to="/chartjs">vue-chartjs</router-link></li>
-      <li><router-link to="/charts">vue-charts</router-link></li>
-      <li><router-link to="/chartkick">vue-chartkick</router-link></li>
-    </ul>
     <h1>Demo examples of vue-chartjs</h1>
     <div class="columns">
       <div class="column">
         <h3>Line Chart</h3>
-        <line-chart></line-chart>
+        <LineChart :chart-data="chartdata" :chart-labels="chartlabels"></LineChart>
       </div>
       <div class="column">
         <h3>Bar Chart</h3>
@@ -28,12 +22,37 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 import LineChart from '@/components/LineChart'
+
+Vue.use(VueAxios, axios)
 
 export default {
   name: 'VueChartJS',
   components: {
     LineChart
+  },
+  data () {
+    return {
+      chartdata: [200, 100, 300],
+      chartlabels: ['1', '2', '3']
+    }
+  },
+  mounted () {
+    this.getItems()
+  },
+  methods: {
+    getItems: function () {
+      var api = 'https://poa20jco7d.execute-api.ap-northeast-1.amazonaws.com/getItems'
+      Vue.axios.get(api).then((response) => {
+        this.chartdata = response.data[1]
+        this.chartlabels = response.data[0]
+        console.log(response.data[0])
+        console.log(response.data[1])
+      })
+    }
   }
 }
 </script>

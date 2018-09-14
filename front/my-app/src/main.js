@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import cognito from './cognito'
 
 // add
 import BootstrapVue from 'bootstrap-vue'
@@ -16,6 +17,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  cognito,
   components: { App },
   template: '<App/>'
 })
