@@ -1,10 +1,11 @@
 <template>
   <section class="container">
     <h1>Demo examples of vue-chartjs</h1>
+    <button @click="getItems">Button</button>
     <div class="columns">
       <div class="column">
         <h3>Line Chart</h3>
-        <LineChart :chart-data="chartdata" :chart-labels="chartlabels"></LineChart>
+        <LineChart v-if="loaded" :chart-data="chartdata" :chart-labels="chartlabels"></LineChart>
       </div>
       <div class="column">
         <h3>Bar Chart</h3>
@@ -36,21 +37,27 @@ export default {
   },
   data () {
     return {
-      chartdata: [200, 100, 300],
-      chartlabels: ['1', '2', '3']
+      loaded: false,
+      chartdata: [],
+      chartlabels: []
     }
   },
   mounted () {
     this.getItems()
   },
   methods: {
-    getItems: function () {
-      var api = 'https://poa20jco7d.execute-api.ap-northeast-1.amazonaws.com/getItems'
-      Vue.axios.get(api).then((response) => {
-        this.chartdata = response.data[1]
-        this.chartlabels = response.data[0]
-        console.log(response.data[0])
-        console.log(response.data[1])
+    resetState () {
+      this.loaded = false
+    },
+    getItems () {
+      this.resetState()
+      var _ENDPOINT_ = 'https://poa20jco7d.execute-api.ap-northeast-1.amazonaws.com/getItems'
+      Vue.axios.get(_ENDPOINT_).then(response => {
+        this.chartdata = response.data.Items.map(Items => Items.scode)
+        this.chartlabels = response.data.Items.map(Items => Items.date)
+        this.loaded = true
+        console.log(this.chartdata)
+        console.log(this.chartlabels)
       })
     }
   }
